@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>test</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <style>
+    body {
+      position: relative;
+      background-color : black;
+      /* cursor: none; */
+      margin: 0;
+    }
+    h1 {
+      color: #fff;
+    }
+    .cursor_item {
+      position: fixed;
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      top: 0;
+      left: 0;
+      margin: -50px 0 0 -50px;  /* 클릭하면 네모박스를 정중앙에 배치하기위해 마진을 두었음 */
+      transition: all 0.5s cubic-bezier(0.390, -0.325, 0.350, 1.380);  /*부드럽게 변하는것에 도움을 준다. */
+    }
+
+    button {
+      font-size: 40px;
+      font-weight: bold;
+      background: #fff;
+      color: red;
+      padding: 30px 80px;
+      margin: 50px;
+      cursor: pointer;            /* 마우스를 올렸을 때 커서의 모양 */
+      transition: all 0.5s cubic-bezier(0.390, -0.325, 0.350, 1.380);  
+    }
+
+    button:hover {
+      background: red;
+      color: #fff;
+      font-size: 80px;
+      padding: 80px 150px;
+    }
+  </style>
+</head>
+<body>
+  <!-- <h1>test</h1> -->
+  <div class="cursor_item"></div>
+  <button>START</button>
+
+  <script>
+    let x = 0;
+    let y = 0;
+    let h1;
+    let cursor_item;
+    let mx = 0;
+    let my = 0;
+    let speed = 0.1;
+
+    window.onload = function() {
+      // h1 = document.getElementsByTagName("h1")[0];
+      cursor_item = document.getElementsByClassName("cursor_item")[0];
+      
+      window.addEventListener('click', mouseFunc, false);
+
+      function mouseFunc(e) {
+        x = e.clientX;
+        y = e.clientY;
+        cursor_item.style.transform = `translate(${x}px, ${y}px)`;
+        // console.log(e.clientX, e.clientY);
+      }
+      // loop();
+    }
+    // function loop() {
+    //   // console.log(x, y);
+    //   mx += (x - mx) * speed;
+    //   my += (y - my) * speed;
+    //   // console.log(x , mx);
+    //   h1.innerHTML = `x: ${x} y: ${y}`;       // 왼쪽 상단위에 마우스 좌표 값이 찍힌다.
+    //   cursor_item.style.transform = `translate(${mx}px, ${my}px)`;
+    //   window.requestAnimationFrame(loop);              // 자연스러운 움직임 구현
+    // }
+  </script>
+</body>
+</html>
