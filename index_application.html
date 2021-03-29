@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>test</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <style>
+    body {
+      position: relative;
+      background-color : black;
+      overflow: hidden;  /* 스크롤을 없앰 */
+    }
+    h1 {
+      color: #fff;
+    }
+
+    .human {
+      position: absolute;
+      width: 300px;
+      top: 4%;
+      left: calc(50% - 150px);  /* 사진을 가운데 보내기 위함(띄어쓰기 중요) */
+      z-index: 100;
+    }
+
+    /* 3D text */
+    .textWrap {
+      position : absolute;
+      left: 50%;
+      top: 10%;
+      transform: translate(-50%, 0);
+      width: 60%;
+      z-index: 1;
+      transform-style: preserve-3d;
+      perspective: 300px;
+    }
+
+    .bg {
+      width: 100%;
+    }
+
+    .pipe {
+      position: absolute;
+      z-index: 100;
+      width: 700px;
+      top: 10%;
+      left: -200px;
+    }
+  </style>
+</head>
+<body>
+  <h1>test</h1>
+  <img src="./layer-7.png" class="human" alt="사람">
+  <div class="textWrap">
+    <img src="./masthead-logo.svg" class="text3d" alt="fix nothing">
+  </div>
+  <img src="./layer-1.jpg" class="bg" alt="벽">
+  <img src="./layer-9.png" class="pipe" alt="파이프">
+
+  <script>
+    let human;
+    let h1;
+    let bg;
+    let text3d;
+    let pipe;
+    
+    let x = 0;
+    let y = 0;
+    let mx = 0;
+    let my = 0;
+    let speed = 0.009;
+
+    window.onload = function() {
+      h1 = document.getElementsByTagName("h1")[0];
+      human = document.getElementsByClassName("human")[0];
+      bg = document.getElementsByClassName("bg")[0];
+      text3d = document.getElementsByClassName("text3d")[0];
+      pipe = document.getElementsByClassName("pipe")[0];
+      
+      window.addEventListener('mousemove', mouseFunc, false);
+
+      function mouseFunc(e) {
+        x = (e.clientX - window.innerWidth / 2);
+        y = (e.clientY - window.innerHeight / 2);
+      }
+      loop();
+    }
+
+    function loop() {
+      mx += (x - mx) * speed;
+      my += (y - my) * speed;
+
+      h1.innerHTML = `x: ${x} y: ${y}`;       // 왼쪽 상단위에 마우스 좌표 값이 찍힌다.
+      human.style.transform = `translate(${mx/9}px, ${my/9}px)`;    // 조금 움직이게 하기 위해서 나눔.
+      bg.style.transform = `translate(${-mx/8}px, ${-my/8}px)`;   
+      text3d.style.transform = `translate3d(${-mx/2}px, ${-my/2}px, 0) rotate3D(0,1,0,${-mx / 50}deg)`; // 3d 방식 움직임.
+      pipe.style.transform = `translate(${mx/4}px, ${my/3}px)`;   
+      window.requestAnimationFrame(loop);            // 자연스러운 움직임 구현
+    }
+  </script>
+</body>
+</html>
