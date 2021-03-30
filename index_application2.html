@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <title>test</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <style>
+    img {
+      position: absolute;
+    }
+    .vod {
+      position: absolute;
+    }
+    #leaf {            /* id= leaf의 위치를 옮겨주기 위함 */
+      width: 30%;
+      top: 55%;
+      left: -100px;
+    }
+  </style>
+</head>
+<body>
+  <section>
+    <img src="https://paidpost-assets.nyt.com/paidpost/allbirds/birds-eye-view/images/1-b90e91a4.png">
+    <img src="https://paidpost-assets.nyt.com/paidpost/allbirds/birds-eye-view/images/2-f3fd6cf5.png">
+    <div class="vod"><video autoplay="" playsinline="" loop="" src="https://paidpost-assets.nyt.com/paidpost/allbirds/birds-eye-view/videos/3-27c8c3ea.webm"></video></div>
+    <img src="https://paidpost-assets.nyt.com/paidpost/allbirds/birds-eye-view/images/4-105dd65b.png">
+    <img src="https://paidpost-assets.nyt.com/paidpost/allbirds/birds-eye-view/images/5-ac49bfdc.png">
+    <img src="https://paidpost-assets.nyt.com/paidpost/allbirds/birds-eye-view/images/6-df0e689d.png" id="leaf">
+  </section>
+  <script>     
+    let x = 0;
+    let y = 0;
+    let mx = 0;
+    let my = 0;
+    let speed = 0.01;
+    let _imgArr;
+    let _bird;
+
+    window.onload = function() {
+      _imgArr = document.getElementsByTagName("img");
+      _bird = document.getElementsByTagName("div")[0];
+      // alert(_imgArr.length);
+      window.addEventListener('mousemove', mouseFunc, false);
+
+      function mouseFunc(e) {
+        x = (e.clientX - window.innerWidth / 2);
+        y = (e.clientY - window.innerHeight / 2);
+      }
+      loop();
+    }
+
+    function loop() {
+      mx += (x - mx) * speed;
+      my += (y - my) * speed;
+
+      _imgArr[1].style.transform = `translate(${-mx/9}px, ${-my/9}px`;
+      _imgArr[2].style.transform = `translate(${-mx/9}px, ${-my/9}px`;
+      _imgArr[3].style.transform = `translate(${-mx/9}px, ${-my/9}px`;
+      _imgArr[4].style.transform = `translate(${-mx/9}px, ${-my/9}px`;
+
+      _bird.style.transform = `translate(${-mx/9}px, ${-my/9}px`;
+      window.requestAnimationFrame(loop);            // 자연스러운 움직임 구현
+    }
+  </script>
+</body>
+</html>
